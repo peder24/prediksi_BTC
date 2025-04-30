@@ -331,7 +331,7 @@ Untuk mengevaluasi performa model, beberapa metrik evaluasi diterapkan:
 * R²: 0.9384
 * MAPE: 8.02%
 
-#### **Interpretasi: **
+#### **Interpretasi:**
 * R² tinggi (0.9384), model menjelaskan 93.84% variasi harga.
 * MAPE 8.02% (rata-rata prediksi menyimpang 8.02% dari aktual).
 * RMSE 5,957.85 USD (error moderat untuk volatilitas Bitcoin).
