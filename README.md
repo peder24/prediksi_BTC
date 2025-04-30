@@ -62,6 +62,7 @@ Berdasarkan hasil eksplorasi awal terhadap dataset, ditemukan informasi sebagai 
 * Format data: Data deret waktu harian
 
 ### **Variabel-variabel pada Bitcoin Price dataset adalah sebagai berikut:**
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745988776/Screenshot_2025-04-30_115234_sefc4h.png)
 
 ### **Kondisi Data**
@@ -108,6 +109,7 @@ Berdasarkan hasil eksplorasi awal terhadap dataset, ditemukan informasi sebagai 
 
 #### **Analisis Univariat**
 1. Tren Harga Bitcoin Over Time:
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745989998/Screenshot_2025-04-30_121241_ztt5l3.png)
 
 ##### **Insight:**
@@ -116,6 +118,7 @@ Berdasarkan hasil eksplorasi awal terhadap dataset, ditemukan informasi sebagai 
 * Tren jangka panjang menunjukkan kenaikan meskipun dengan volatilitas tinggi
 
 2. Distribusi Harga Penutupan:
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745990246/Screenshot_2025-04-30_121705_mt2vkn.png)
 
 ##### **Insight:**
@@ -124,6 +127,7 @@ Berdasarkan hasil eksplorasi awal terhadap dataset, ditemukan informasi sebagai 
 * Beberapa observasi ekstrem di sisi kanan (harga tinggi)
 
 3. Return Harian:
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745990345/Screenshot_2025-04-30_121837_tw7h9b.png)
 
 ##### **Insight:**
@@ -132,6 +136,7 @@ Berdasarkan hasil eksplorasi awal terhadap dataset, ditemukan informasi sebagai 
 * Distribusi return mendekati simetris tetapi memiliki ekor tebal (leptokurtic)
 
 4. Autokorelasi:
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745990747/Screenshot_2025-04-30_122517_wbkbuo.png)
 
 ##### **Insight:**
@@ -142,13 +147,15 @@ Berdasarkan hasil eksplorasi awal terhadap dataset, ditemukan informasi sebagai 
 #### **Analisis Multivariate**
 
 1. Matrix Korelasi:
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745990897/matrix_e1hm23.png)
 
 * Korelasi sangat tinggi (>0.99) antara Open, High, Low, dan Close
 * Korelasi moderat antara harga dan volume (sekitar 0.66)
 * High dan Low memiliki korelasi tertinggi (0.9996)
 
-2. Hubungan Harga dan Volume:
+1. Hubungan Harga dan Volume:
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745991165/Screenshot_2025-04-30_123220_avhjfn.png)
 
 * Hubungan antara volume dan harga penutupan Bitcoin cenderung positif, tapi tidak linear dan tersebar luas.
@@ -157,7 +164,8 @@ Berdasarkan hasil eksplorasi awal terhadap dataset, ditemukan informasi sebagai 
 * Outlier volume yang ekstrem bisa mengganggu analisis korelasi dan perlu ditinjau lebih lanjut.
 * Analisis kuantitatif lebih lanjut (misalnya korelasi Pearson/Spearman, atau regresi) akan memberikan gambaran yang lebih akurat.
 
-3. Moving Averages:
+1. Moving Averages:
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746000185/Screenshot_2025-04-30_150239_ogytvu.png)
 
 * MA7 (rata-rata 7 hari) lebih volatile dan mengikuti pergerakan harga jangka pendek
@@ -172,6 +180,7 @@ Tahap persiapan data sangat penting untuk memastikan kualitas input yang diberik
 ### **1. Konversi Tipe Data**
 
 Langkah pertama adalah memastikan semua kolom memiliki tipe data yang sesuai:
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746000524/Screenshot_2025-04-30_150828_ojwpwu.png)
 
 Hasil: Semua kolom berhasil dikonversi ke tipe data yang sesuai (datetime untuk Date, float64 untuk kolom harga, dan int64 untuk Volume).
@@ -179,6 +188,7 @@ Hasil: Semua kolom berhasil dikonversi ke tipe data yang sesuai (datetime untuk 
 ### **2. Penanganan Missing Value**
 
 Meskipun analisis awal menunjukkan tidak ada missing value, dilakukan pemeriksaan ulang dan penanganan untuk memastikan integritas data:
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746000658/Screenshot_2025-04-30_151033_luevij.png)
 
 Hasil: Tidak ditemukan missing value yang perlu ditangani.
@@ -196,11 +206,15 @@ Setelah analisis menggunakan metode IQR, diputuskan untuk mempertahankan outlier
 Beberapa fitur tambahan dibuat untuk memperkaya analisis:
 
 1. Daily Return: Menghitung persentase perubahan harga harian
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746001584/Screenshot_2025-04-30_152559_dufo7h.png)
+   
    Formula: (Close_today - Close_yesterday) / Close_yesterday * 100
 
-2. Moving Averages: Menghitung rata-rata bergerak untuk mengidentifikasi tren
+1. Moving Averages: Menghitung rata-rata bergerak untuk mengidentifikasi tren
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746001660/Screenshot_2025-04-30_152721_lzyc26.png)
+   
    Formula MA: Σ(Close_prices_in_window) / window_size
 
 Hasil: Berhasil menambahkan 4 fitur baru yang memberikan perspektif tambahan tentang pergerakan harga.
@@ -212,6 +226,7 @@ Normalisasi diperlukan karena:
 * Neural networks (termasuk LSTM) bekerja lebih baik dengan data yang dinormalisasi
 * Mencegah dominasi fitur dengan skala besar
 * Mempercepat konvergensi selama proses training
+  
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746001748/Screenshot_2025-04-30_152848_kdrgrp.png)
 
 Formula MinMaxScaler: X_scaled = (X - X_min) / (X_max - X_min)
@@ -223,12 +238,15 @@ Hasil: Data harga Bitcoin berhasil dinormalisasi ke dalam range 0-1.
 Data deret waktu memerlukan format khusus untuk model LSTM:
 
 1. Pembagian Data: 80% training, 20% testing
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746001931/Screenshot_2025-04-30_153055_p2mtvt.png)
 
 2. Sliding Window: Menggunakan 60 hari data untuk memprediksi hari berikutnya
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746002017/Screenshot_2025-04-30_153319_jz6jji.png)
 
 3. Reshaping Data: Format untuk LSTM [samples, time steps, features]
+   
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746002127/Screenshot_2025-04-30_153508_rkxr6f.png)
 
 Hasil:
@@ -338,7 +356,9 @@ Untuk mengevaluasi performa model, beberapa metrik evaluasi diterapkan:
 * Distribusi error right-skewed (banyak di 2,000–5,000 USD, beberapa di atas 17,500 USD).
 
 ## **Future Price Prediction**
+
 ![alt_text](https://res.cloudinary.com/dk2tex4to/image/upload/v1746003337/Screenshot_2025-04-30_155507_zgyvjk.png)
+
 Model digunakan untuk prediksi 30 hari ke depan (recursive):
 
 * Harga Bitcoin saat ini: $90,056.65
@@ -346,6 +366,7 @@ Model digunakan untuk prediksi 30 hari ke depan (recursive):
 * Perubahan harga: -$65,363.95 (-72.58%)
 
 ### **Tabel Prediksi:**
+
 ![alt text](https://res.cloudinary.com/dk2tex4to/image/upload/v1745505347/image_gashxe.png)
 
 Prediksi menurun tajam dan konsisten selama 30 hari ke depan. Perlu kehati-hatian: penurunan ekstrem ini bisa jadi akibat bias under-prediction pada harga tinggi.
