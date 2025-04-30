@@ -268,23 +268,10 @@ Pada proyek ini, model LSTM (Long Short-Term Memory) dipilih untuk memprediksi h
 
 LSTM bekerja dengan mekanisme sel memori dan tiga gerbang kontrol:
 
-1. Forget Gate (f_t): Menentukan informasi mana dari sel memori sebelumnya yang harus dibuang
-* Formula: f_t = σ(W_f · [h_t-1, x_t] + b_f)
-* Dimana σ adalah fungsi sigmoid, W_f adalah weight, h_t-1 adalah hidden state sebelumnya, x_t adalah input saat ini, dan b_f adalah bias
-
-2. Input Gate (i_t): Terdiri dari dua komponen:
-* Gate: i_t = σ(W_i · [h_t-1, x_t] + b_i)
-* Kandidat nilai sel baru: C̃_t = tanh(W_C · [h_t-1, x_t] + b_C)
-* Informasi baru untuk sel: i_t * C̃_t
-
+1. Forget Gate : Menentukan informasi mana dari sel memori sebelumnya yang harus dibuang
+2. Input Gate : Terdiri dari dua komponen:
 3. Cell State Update: Memperbarui sel memori dengan menggabungkan informasi lama dan baru
-* C_t = f_t * C_t-1 + i_t * C̃_t
-* Dimana C_t-1 adalah sel memori sebelumnya
-
-4. Output Gate (o_t): Menentukan bagian mana dari sel memori yang akan dioutputkan
-* o_t = σ(W_o · [h_t-1, x_t] + b_o)
-* h_t = o_t * tanh(C_t)
-* Dimana h_t adalah hidden state saat ini yang diteruskan ke langkah waktu berikutnya
+4. Output Gate : Menentukan bagian mana dari sel memori yang akan dioutputkan
 
 Kelebihan LSTM:
 
