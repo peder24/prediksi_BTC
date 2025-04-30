@@ -336,7 +336,7 @@ Untuk mengevaluasi performa model, beberapa metrik evaluasi diterapkan:
 * MAPE 8.02% (rata-rata prediksi menyimpang 8.02% dari aktual).
 * RMSE 5,957.85 USD (error moderat untuk volatilitas Bitcoin).
 
-### **2. Analisis Error**
+### **3. Analisis Error**
 * Mean error: 4,989.61 USD (cenderung under-predict)
 * Std error: 3,255.73 USD (variasi error cukup tinggi)
 * Error meningkat pada harga tinggi, bias under-prediction pada puncak harga.
